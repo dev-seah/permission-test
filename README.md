@@ -6,4 +6,4 @@
 
 1. **클론**: 이 레포지토리를 클론합니다.
    ```bash
-   git clone https://github.com/dev-seah/permission-test.git
+   git clone https://github.com/YOUR_USERNAME/permission-test.git

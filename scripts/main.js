@@ -1,4 +1,5 @@
 document.getElementById('cameraButton').addEventListener('click', setupCamera);
+document.getElementById('micButton').addEventListener('click', setupMic);
 
 function setupCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -11,7 +12,7 @@ function setupCamera() {
         });
 }
 
-function setupMicFeedback() {
+function setupMic() {
     navigator.mediaDevices.getUserMedia({ audio: true })
         .then(stream => {
             const audio = document.getElementById('micFeedback');
@@ -32,5 +33,4 @@ function playAudio() {
     });
 }
 
-setupMicFeedback();
 playAudio();
