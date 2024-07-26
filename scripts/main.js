@@ -1,5 +1,29 @@
-document.getElementById('cameraButton').addEventListener('click', setupCamera);
-document.getElementById('micButton').addEventListener('click', setupMic);
+document.getElementById('cameraButton').addEventListener('click', handleCameraPermission);
+document.getElementById('micButton').addEventListener('click', handleMicPermission);
+
+function handleCameraPermission() {
+    navigator.permissions.query({ name: 'camera' }).then(permissionStatus => {
+        if (permissionStatus.state === 'granted') {
+            setupCamera();
+        } else if (permissionStatus.state === 'denied') {
+            showPermissionDenied('카메라');
+        } else {
+            requestCameraPermission();
+        }
+    });
+}
+
+function handleMicPermission() {
+    navigator.permissions.query({ name: 'microphone' }).then(permissionStatus => {
+        if (permissionStatus.state === 'granted') {
+            setupMic();
+        } else if (permissionStatus.state === 'denied') {
+            showPermissionDenied('마이크');
+        } else {
+            requestMicPermission();
+        }
+    });
+}
 
 function setupCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
@@ -29,11 +53,29 @@ function setupMic() {
         });
 }
 
-function playAudio() {
-    const video = document.getElementById('audioPlayback');
-    video.play().catch(error => {
-        console.error('오디오 재생에 실패했습니다:', error);
-    });
+function showPermissionDenied(device) {
+    const statusMessage = document.getElementById('statusMessage');
+    statusMessage.innerText = `${device} 권한이 차단되었습니다.`;
 }
 
-playAudio();
+function requestCameraPermission() {
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            stream.getTracks().forEach(track => track.stop());
+            setupCamera();
+        })
+        .catch(error => {
+            showPermissionDenied('카메라');
+        });
+}
+
+function requestMicPermission() {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            stream.getTracks().forEach(track => track.stop());
+            setupMic();
+        })
+        .catch(error => {
+            showPermissionDenied('마이크');
+        });
+}
