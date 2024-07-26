@@ -6,6 +6,9 @@ function setupCamera() {
         .then(stream => {
             const video = document.getElementById('cameraFeed');
             video.srcObject = stream;
+            video.play().catch(error => {
+                console.error('비디오 재생에 실패했습니다:', error);
+            });
         })
         .catch(error => {
             console.error('카메라 권한이 거부되었거나 오류가 발생했습니다:', error);
