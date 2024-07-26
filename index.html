@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>권한 테스트 페이지</title>
+    <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+    <div class="permission-check">
+        <button id="cameraButton">카메라 연결</button>
+        <div id="videoContainer" class="video-container">
+            <video id="cameraFeed" width="640" height="480" autoplay muted></video>
+        </div>
+        <div id="audioContainer" class="audio-container">
+            <audio id="micFeedback" controls autoplay></audio>
+        </div>
+        <div id="audioPlaybackContainer" class="audio-container">
+            <video id="audioPlayback" width="640" controls autoplay>
+                <source src="assets/media.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+
+    <script src="scripts/main.js"></script>
+</body>
+</html>
