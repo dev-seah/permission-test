@@ -10,7 +10,17 @@
     <div class="permission-check">
         <button id="cameraButton">카메라 연결</button>
         <button id="micButton">마이크 연결</button>
+        <label class="switch">
+            <input type="checkbox" id="notificationToggle">
+            <span class="slider round"></span>
+        </label>
+        <span id="notificationLabel">알림 받기</span>
+        
         <div id="statusMessage"></div>
+        <div id="toast" class="toast">
+            <p>알림 받기가 완료되었습니다.</p>
+            <a href="https://www.naver.com/" target="_blank">알림 설정</a>
+        </div>
         <div id="videoContainer" class="video-container">
             <video id="cameraFeed" width="640" height="480" autoplay playsinline></video>
         </div>

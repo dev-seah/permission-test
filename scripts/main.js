@@ -1,5 +1,6 @@
 document.getElementById('cameraButton').addEventListener('click', handleCameraPermission);
 document.getElementById('micButton').addEventListener('click', handleMicPermission);
+document.getElementById('notificationToggle').addEventListener('change', handleNotificationPermission);
 
 function handleCameraPermission() {
     navigator.permissions.query({ name: 'camera' }).then(permissionStatus => {
@@ -79,3 +80,36 @@ function requestMicPermission() {
             showPermissionDenied('마이크');
         });
 }
+
+function handleNotificationPermission() {
+    if (Notification.permission === 'granted') {
+        showNotificationSuccess();
+    } else if (Notification.permission === 'denied') {
+        showPermissionDenied('알림');
+    } else {
+        Notification.requestPermission().then(permission => {
+            if (permission === 'granted') {
+                showNotificationSuccess();
+            } else {
+                showPermissionDenied('알림');
+            }
+        });
+    }
+}
+
+function showNotificationSuccess() {
+    const toast = document.getElementById('toast');
+    const notificationToggle = document.getElementById('notificationToggle');
+    notificationToggle.checked = true;
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 알림 권한 상태를 초기화
+    if (Notification.permission === 'granted') {
+        document.getElementById('notificationToggle').checked = true;
+    }
+});
