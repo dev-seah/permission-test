@@ -82,16 +82,20 @@ function requestMicPermission() {
 }
 
 function handleNotificationPermission() {
+    const notificationToggle = document.getElementById('notificationToggle');
+    
     if (Notification.permission === 'granted') {
         showNotificationSuccess();
     } else if (Notification.permission === 'denied') {
         showPermissionDenied('알림');
+        notificationToggle.checked = false; // 권한이 거부된 경우 토글을 OFF로 유지
     } else {
         Notification.requestPermission().then(permission => {
             if (permission === 'granted') {
                 showNotificationSuccess();
             } else {
                 showPermissionDenied('알림');
+                notificationToggle.checked = false; // 권한이 허용되지 않으면 토글을 OFF로 유지
             }
         });
     }
@@ -100,16 +104,18 @@ function handleNotificationPermission() {
 function showNotificationSuccess() {
     const toast = document.getElementById('toast');
     const notificationToggle = document.getElementById('notificationToggle');
-    notificationToggle.checked = true;
+    notificationToggle.checked = true; // 권한이 허용된 경우에만 토글 ON
     toast.classList.add('show');
     setTimeout(() => {
         toast.classList.remove('show');
-    }, 3000);
+    }, 5000); // 5초 동안 지속
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     // 알림 권한 상태를 초기화
     if (Notification.permission === 'granted') {
         document.getElementById('notificationToggle').checked = true;
+    } else {
+        document.getElementById('notificationToggle').checked = false;
     }
 });

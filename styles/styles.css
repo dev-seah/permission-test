@@ -69,30 +69,41 @@ input:checked + .slider:before {
 
 .toast {
     visibility: hidden;
-    min-width: 250px;
-    margin: 10px;
+    width: 80%; /* 가로로 긴 형태로 변경 */
+    margin: 0 auto;
     background-color: #333;
     color: white;
     text-align: center;
-    border-radius: 2px;
+    border-radius: 5px;
     padding: 16px;
     position: fixed;
     z-index: 1;
-    bottom: 30px;
-    right: 30px;
+    bottom: 10%;
+    left: 10%; /* 중앙 정렬을 위한 위치 설정 */
+    transform: translateX(-50%);
 }
 
 .toast.show {
     visibility: visible;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 4.5s; /* 5초 지속 시간 */
 }
 
 @keyframes fadein {
     from {bottom: 0; opacity: 0;}
-    to {bottom: 30px; opacity: 1;}
+    to {bottom: 10%; opacity: 1;}
 }
 
 @keyframes fadeout {
-    from {bottom: 30px; opacity: 1;}
+    from {bottom: 10%; opacity: 1;}
     to {bottom: 0; opacity: 0;}
+}
+
+.toast a {
+    color: #00ffc3; /* 민트색으로 변경 */
+    font-weight: bold; /* 굵은 글씨 */
+    text-decoration: none;
+}
+
+.toast a:hover {
+    text-decoration: underline;
 }
